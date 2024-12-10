@@ -6,74 +6,56 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/09 23:59:07 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/10 16:47:27 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
 
 
-unsigned int	init_iterate_pixel(int x, int y, t_graph graph)
+void	wiki(void)
 {
-	t_pixel	pixel;
-	double		zr;
-	double		zi;
-	int			z_total;
-
-	pixel.x_graph = graph.min_real + ((double)x / graph.largeur)*(graph.max_real - graph.min_real);
-	pixel.y_graph = graph.min_img + ((double)y / graph.hauteur)*(graph.max_img - graph.min_img);
-
-	zr = pow(pixel.x_graph, 2) - pow(pixel.y_graph, 2); + pixel.x_graph;
-	zi = 2 * pixel.x_graph * pixel.y_graph + pixel.y_graph;
+	ft_printf("\n========== WIKI FRACT-OL ==========\n\n");
+	ft_printf("At runtime, you must specify a fractal to display. ");
+	ft_printf("Additional optional parameters can also be provided :\n\n");
+	ft_printf("./fract-ol <type> <options>\n\n");
+	ft_printf(" - M, m, or 1 : Mandelbrot fractal\n");
+	ft_printf(" - J, j, or 2 : Julia fractal\n\n");
+	ft_printf("For the Julia fractal set (and only for this set), ");
+	ft_printf("two additional parameters can be provided as calculation ");
+	ft_printf("values. These parameters correspond to a complex number that ");
+	ft_printf("modifies the shape of the Julia fractal. They must be ");
+	ft_printf("fractional numbers ranging from -2.0 to 2.0. Example :\n\n");
+	ft_printf("./fractol J 0.285 -0.01\n\n");
+	ft_printf("You can also specify a hexadecimal color to customize the ");
+	ft_printf("fractal's appearance :\n\n");
+	ft_printf("./fractol M 00CCFF\n\n");
+	ft_printf("However, for the Julia set, the color option can only be ");
+	ft_printf("used after specifying the calculation values :\n\n");
+	ft_printf("./fractol J -0.4 0.6 65CD87\n\n");
+	ft_printf("========== FRACT-OL CONTROLS ==========\n\n");
+	ft_printf("|------------------------|--------------------|\n");
+	ft_printf("|      scroll wheel      |  Zoom in and out   |\n");
+	ft_printf("|------------------------|--------------------|\n");
+	ft_printf("| echap or close control |   Quit fract-ol    |\n");
+	ft_printf("|------------------------|--------------------|\n\n");
+	ft_printf("Exiting properly...");
 }
 
-
-
-int	main(void)
+void	handle_args(char c) // a modifier
 {
-	void	*mlx;
-	void	*win;
-	t_data	img;
-	int		largeur = 800;
-	int		hauteur = 600;
-	t_graph	graph;
+	if (c == 'M' || c == 'm' || c == '1')
+		mandelbrot();
+	else if (c == 'J' || c == 'j' || c == '2')
+		mandelbrot();
+	else
+		wiki();
+ }
 
-	// j'initialise les valeurs de mon graphique
-	graph.max_img = 1;
-	graph.min_img = -1;
-	graph.max_real = 3;
-	graph.min_real = -1;
-	graph.largeur = largeur;
-	graph.hauteur = hauteur;
-
-	// Les valeurs pour parcourir la window
-	int		x;
-	int		y;
-	char	*dst;
-
-	// Initialisation de MiniLibX et création de la fenêtre
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, largeur, hauteur, "FRACTAL");
-
-	// Création de l'image
-	img.img = mlx_new_image(mlx, largeur, hauteur);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
-	y = 0;
-	while (y < hauteur)
-	{
-		x = 0;
-		while (x < largeur)
-		{
-			dst = img.addr + (y * img.line_length + x * (img.bits_per_pixel / 8));
-			*(unsigned int *)dst = init_iterate_pixel(x, y, graph);
-			x++;
-		}
-		y++;
-	}
-    // Affichage de l'image dans la fenêtre
-    mlx_put_image_to_window(mlx, win, img.img, 0, 0);
-
-    // Boucle pour garder la fenêtre ouverte
-    mlx_loop(mlx);
+int	main(int argc, char *argv[])
+{
+	if (argc < 2)
+		return(wiki(), 0);
+	handle_args(argv[1][0]); // a modifier
+	return (0);
 }
