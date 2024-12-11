@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   init_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hduflos <hduflos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:52:35 by spike             #+#    #+#             */
-/*   Updated: 2024/12/10 23:38:51 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:32:58 by hduflos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
+
+unsigned int	select_color_julia(t_pixel pixel, double c, double d)
+{
+	double		zr;
+	double		temp_zr;
+	double		zi;
+	int			i;
+
+	zr = pixel.x_graph;
+	zi = pixel.y_graph;
+	i = 0;
+
+	while (zr * zr + zi * zi < (double)4 && i < 250)
+	{
+		temp_zr = zr* zr - zi * zi + c;
+		zi = 2 * zr * zi + d;
+		zr = temp_zr;
+		i++;
+	}
+
+	if (i == 250)
+		return (0x000000);
+
+	unsigned int red = (i * 1) % 256;
+	unsigned int green = (i * 3) % 256;
+	unsigned int blue = (i * 5) % 256;
+	return (red << 16 | green << 8 | blue);
+}
 
 unsigned int	select_color(t_pixel pixel)
 {
@@ -39,7 +67,7 @@ unsigned int	select_color(t_pixel pixel)
 	return (red << 16 | green << 8 | blue);
 }
 
-unsigned int	init_pixel_color(int x, int y, t_graph graph)
+unsigned int	init_pixel_color(int x, int y, t_graph graph, int i)
 {
 	t_pixel		pixel;
 
@@ -52,7 +80,10 @@ unsigned int	init_pixel_color(int x, int y, t_graph graph)
 	pixel.x_graph = graph.center_real - graph.real_range / 2 + ((double)x / graph.width) * graph.real_range;
 	pixel.y_graph = graph.center_img - graph.img_range / 2 + ((double)y / graph.height) * graph.img_range;
 
-	return (select_color(pixel));
+	if (i == 1)
+		return (select_color(pixel));
+	else
+		return (select_color_julia(pixel, graph.julia_r, graph.julia_i));
 }
 
 void	init_graph_window(t_graph *graph)
@@ -64,4 +95,17 @@ void	init_graph_window(t_graph *graph)
 	graph->zoom = 1.0;
 	graph->width = WIDTH;
 	graph->height = HEIGHT;
+}
+
+void	init_graph_window_julia(t_graph *graph, double c, double d)
+{
+	graph->min_real = MIN_R;
+	graph->max_real = MAX_R;
+	graph->min_img = MIN_I;
+	graph->max_img = MAX_I;
+	graph->zoom = 1.0;
+	graph->width = WIDTH;
+	graph->height = HEIGHT;
+	graph->julia_r = c;
+	graph->julia_i = d;
 }

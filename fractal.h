@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractal.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hduflos <hduflos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:25:46 by spike             #+#    #+#             */
-/*   Updated: 2024/12/10 23:12:20 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:38:52 by hduflos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct	s_graph
 	double	center_real;
 	double	center_img;
 	double	zoom;
+	double	julia_r;
+	double	julia_i;
 	int		width;
 	int		height;
 
@@ -61,9 +63,13 @@ typedef struct	s_data {
 
 //			----Mandelbrot----
 int				mandelbrot(void);
-void			print_pixels(t_data *img, t_graph *graph);
-unsigned int	init_pixel_color(int x, int y, t_graph graph);
+void			print_pixels(t_data *img, t_graph *graph, int i);
+unsigned int	init_pixel_color(int x, int y, t_graph graph, int i);
 void			init_graph_window(t_graph *graph);
+
+//			----Julia----
+void			init_graph_window_julia(t_graph *graph, double c, double d);
+int				julia(double c, double d);
 
 //			----ERROR-----
 int				handle_keys(int keycode, void *param);

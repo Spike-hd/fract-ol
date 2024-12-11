@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractal.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hduflos <hduflos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/10 16:47:27 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/11 15:39:06 by hduflos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	wiki(void)
 	ft_printf("Exiting properly...");
 }
 
-void	handle_args(char c) // a modifier
+int	handle_args(char c) // a modifier
 {
 	if (c == 'M' || c == 'm' || c == '1')
 		mandelbrot();
@@ -54,8 +54,48 @@ void	handle_args(char c) // a modifier
 
 int	main(int argc, char *argv[])
 {
+	int	i;
+
 	if (argc < 2)
 		return(wiki(), 0);
-	handle_args(argv[1][0]); // a modifier
-	return (0);
+
+	i = select_fractal(argv[1]); // a modifier
+	if (i < 0 || (i == 1 && argc > 2))
+		return(wiki(), 0);
+	if (i == 1)
+		return(wiki(), 0);rot();
+	if (i == 2 && argc == 2)
+		julia(c + di); // => mettre les valeurs de bases
+	else if (i == 2 && argc == 4)
+		julia(ft_atod(argv[2]), ft_atod(argv[3]));
+	else
+		return(wiki(), 0);
+}
+
+double	ft_atod(char *str)
+{
+	int		i;
+	int		nb;
+	int		res;
+	int		fnb;
+	double	final;
+
+	nb = ft_atoi(str);
+	i = 0;
+	while (str[i] && str[i] != '.')
+		i++;
+	res = 1;
+	while (str[i] && str[i] == '0')
+	{
+		res *= 10;
+		i++;
+	}
+	fnb = 0.0;
+	while (str[i] && ft_isdigit(str[i]))
+	{
+		fnb = 10 * fnb + (str[i] + '0');
+		i++;
+	}
+	final = nb + (1 / (res*fnb));
+	return (final);
 }
