@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hduflos <hduflos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/11 15:26:33 by hduflos          ###   ########.fr       */
+/*   Updated: 2024/12/11 17:58:22 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	mandelbrot(void)
 	t_data	img;
 
 	// init graph and window values
+	img.fractal = 1;
 	init_graph_window(&img.graph);
 
 	// Initialisation de MiniLibX et création de la fenêtre
@@ -65,6 +66,7 @@ int	julia(double c, double d)
 	t_data	img;
 
 	// init graph and window values
+	img.fractal = 2;
 	init_graph_window_julia(&img.graph, c, d);
 
 	// Initialisation de MiniLibX et création de la fenêtre

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_stuff.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hduflos <hduflos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:52:35 by spike             #+#    #+#             */
-/*   Updated: 2024/12/11 15:32:58 by hduflos          ###   ########.fr       */
+/*   Updated: 2024/12/11 22:35:15 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ unsigned int	select_color_julia(t_pixel pixel, double c, double d)
 	zi = pixel.y_graph;
 	i = 0;
 
-	while (zr * zr + zi * zi < (double)4 && i < 250)
+	while (zr * zr + zi * zi < (double)4 && i < 200)
 	{
 		temp_zr = zr* zr - zi * zi + c;
 		zi = 2 * zr * zi + d;
@@ -31,12 +31,16 @@ unsigned int	select_color_julia(t_pixel pixel, double c, double d)
 		i++;
 	}
 
-	if (i == 250)
+	if (i == 200)
 		return (0x000000);
 
-	unsigned int red = (i * 1) % 256;
-	unsigned int green = (i * 3) % 256;
-	unsigned int blue = (i * 5) % 256;
+	// unsigned int red = (i * 1) % 256;
+	// unsigned int green = (i * 3) % 256;
+	// unsigned int blue = (i * 5) % 256;
+
+	unsigned int red = (unsigned int)(128 + 127 * sin(0.1 * i));
+	unsigned int green = (unsigned int)(128 + 127 * sin(0.1 * i + 2.0));
+	unsigned int blue = (unsigned int)(128 + 127 * sin(0.1 * i + 4.0));
 	return (red << 16 | green << 8 | blue);
 }
 
@@ -50,7 +54,7 @@ unsigned int	select_color(t_pixel pixel)
 	zr = 0;
 	zi = 0;
 	i = 0;
-	while (zr * zr + zi * zi < (double)4.0 && i < 300)
+	while (zr * zr + zi * zi < (double)4.0 && i < 200)
 	{
 		temp_zr = zr* zr - zi * zi + pixel.x_graph;
 		zi = 2 * zr * zi + pixel.y_graph;
@@ -58,12 +62,16 @@ unsigned int	select_color(t_pixel pixel)
 		i++;
 	}
 
-	if (i == 300)
+	if (i == 200)
 		return (0x000000);
 
-	unsigned int red = (i * 1) % 256;
-	unsigned int green = (i * 3) % 256;
-	unsigned int blue = (i * 5) % 256;
+	// unsigned int red = (i * 1) % 256;
+	// unsigned int green = (i * 1) % 256;
+	// unsigned int blue = (i * 5) % 256;
+
+	unsigned int red = (unsigned int)(128 + 127 * sin(0.1 * i));
+	unsigned int green = (unsigned int)(128 + 127 * sin(0.1 * i + 2.0));
+	unsigned int blue = (unsigned int)(128 + 127 * sin(0.1 * i + 4.0));
 	return (red << 16 | green << 8 | blue);
 }
 

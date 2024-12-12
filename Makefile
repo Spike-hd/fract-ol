@@ -7,9 +7,13 @@ MLX_PATH    = minilibx/
 MLX_NAME    = libmlx.a
 MLX         = $(MLX_PATH)$(MLX_NAME)
 
-LIBFT_PATH  = libft/
-LIBFT_NAME  = libftprintf.a
+LIBFT_PATH  = libft/_libft/
+LIBFT_NAME  = libft.a
 LIBFT       = $(LIBFT_PATH)$(LIBFT_NAME)
+
+PRINTF_PATH  = libft/ft_printf/
+PRINTF_NAME  = libftprintf.a
+PRINTF      = $(PRINTF_PATH)$(PRINTF_NAME)
 
 INC         = -I ./libft/ -I ./minilibx/
 
@@ -22,9 +26,9 @@ all: $(NAME)
 	@echo "Compiling $<..."
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
-$(NAME): $(OBJ) $(MLX) $(LIBFT)
+$(NAME): $(OBJ) $(MLX) $(LIBFT) $(PRINTF)
 	@echo "Compiling fract-ol..."
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) $(LIBFT) $(INC) -framework OpenGL -framework AppKit
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) $(LIBFT) $(PRINTF) $(INC) -framework OpenGL -framework AppKit
 	@echo "Fract-ol ready"
 
 $(MLX):
@@ -35,6 +39,10 @@ $(LIBFT):
 	@echo "Making libft..."
 	@make -sC $(LIBFT_PATH)
 
+$(PRINTF):
+	@echo "Making printf..."
+	@make -sC $(PRINTF_PATH)
+
 bonus: all
 
 clean:
@@ -42,6 +50,7 @@ clean:
 	@rm -f $(OBJ)
 	@make clean -C $(MLX_PATH)
 	@make clean -C $(LIBFT_PATH)
+	@make clean -C $(PRINTF_PATH)
 
 fclean: clean
 	@echo "Removing fract-ol..."

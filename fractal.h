@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractal.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hduflos <hduflos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:25:46 by spike             #+#    #+#             */
-/*   Updated: 2024/12/11 15:38:52 by hduflos          ###   ########.fr       */
+/*   Updated: 2024/12/11 17:57:24 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define FRACTAL_H
 
 #include "minilibx/mlx.h"
-#include "libft/ft_printf.h"
+#include "libft/ft_printf/ft_printf.h"
+#include "libft/_libft/libft.h"
 #include <stdlib.h>
 #include <math.h>
 
@@ -55,6 +56,7 @@ typedef struct	s_data {
 	void	*win;
 	void	*mlx;
 	char	*addr;
+	int		fractal;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

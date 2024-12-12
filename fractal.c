@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractal.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hduflos <hduflos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/11 15:39:06 by hduflos          ###   ########.fr       */
+/*   Updated: 2024/12/11 22:38:03 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,23 @@ void	wiki(void)
 	ft_printf("Exiting properly...");
 }
 
-int	handle_args(char c) // a modifier
+int	select_fractal(char *str)
 {
-	if (c == 'M' || c == 'm' || c == '1')
-		mandelbrot();
-	else if (c == 'J' || c == 'j' || c == '2')
-		mandelbrot();
+	if (!ft_strncmp(str, "mandelbrot", ft_strlen(str)))
+		return (1);
+	if (!ft_strncmp(str, "Mandelbrot", ft_strlen(str)))
+		return (1);
+	if (!ft_strncmp(str, "1", ft_strlen(str)))
+		return (1);
+	if (!ft_strncmp(str, "julia", ft_strlen(str)))
+		return (2);
+	if (!ft_strncmp(str, "Julia", ft_strlen(str)))
+		return (2);
+	if (!ft_strncmp(str, "2", ft_strlen(str)))
+		return (2);
 	else
-		wiki();
- }
+		return (0);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -59,43 +67,17 @@ int	main(int argc, char *argv[])
 	if (argc < 2)
 		return(wiki(), 0);
 
-	i = select_fractal(argv[1]); // a modifier
+	i = select_fractal(argv[1]);
 	if (i < 0 || (i == 1 && argc > 2))
 		return(wiki(), 0);
+	if (i == 1 && argc > 2)
+		return(wiki(), 0);
 	if (i == 1)
-		return(wiki(), 0);rot();
+		mandelbrot();
 	if (i == 2 && argc == 2)
-		julia(c + di); // => mettre les valeurs de bases
+		julia(-0.8, 0.156);
 	else if (i == 2 && argc == 4)
 		julia(ft_atod(argv[2]), ft_atod(argv[3]));
 	else
 		return(wiki(), 0);
-}
-
-double	ft_atod(char *str)
-{
-	int		i;
-	int		nb;
-	int		res;
-	int		fnb;
-	double	final;
-
-	nb = ft_atoi(str);
-	i = 0;
-	while (str[i] && str[i] != '.')
-		i++;
-	res = 1;
-	while (str[i] && str[i] == '0')
-	{
-		res *= 10;
-		i++;
-	}
-	fnb = 0.0;
-	while (str[i] && ft_isdigit(str[i]))
-	{
-		fnb = 10 * fnb + (str[i] + '0');
-		i++;
-	}
-	final = nb + (1 / (res*fnb));
-	return (final);
 }

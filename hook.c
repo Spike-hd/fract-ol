@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:48:51 by spike             #+#    #+#             */
-/*   Updated: 2024/12/10 23:21:23 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/11 17:58:40 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	handle_mouse(int button, int x, int y, t_data *img)
 		img->graph.zoom /= 1.1;
 
 	mlx_clear_window(img->mlx, img->win);
-	print_pixels(img, &img->graph);
+	print_pixels(img, &img->graph, img->fractal);
 	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
 	return (0);
 }
