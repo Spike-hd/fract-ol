@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:52:35 by spike             #+#    #+#             */
-/*   Updated: 2024/12/11 22:35:15 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/14 12:12:04 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ unsigned int	select_color_julia(t_pixel pixel, double c, double d)
 	zr = pixel.x_graph;
 	zi = pixel.y_graph;
 	i = 0;
-
 	while (zr * zr + zi * zi < (double)4 && i < 200)
 	{
 		temp_zr = zr* zr - zi * zi + c;
@@ -30,17 +29,11 @@ unsigned int	select_color_julia(t_pixel pixel, double c, double d)
 		zr = temp_zr;
 		i++;
 	}
-
 	if (i == 200)
 		return (0x000000);
-
-	// unsigned int red = (i * 1) % 256;
-	// unsigned int green = (i * 3) % 256;
-	// unsigned int blue = (i * 5) % 256;
-
-	unsigned int red = (unsigned int)(128 + 127 * sin(0.1 * i));
-	unsigned int green = (unsigned int)(128 + 127 * sin(0.1 * i + 2.0));
-	unsigned int blue = (unsigned int)(128 + 127 * sin(0.1 * i + 4.0));
+	unsigned int red = (i * 1) % 256;
+	unsigned int green = (i * 3) % 256;
+	unsigned int blue = (i * 5) % 256;
 	return (red << 16 | green << 8 | blue);
 }
 
@@ -61,17 +54,11 @@ unsigned int	select_color(t_pixel pixel)
 		zr = temp_zr;
 		i++;
 	}
-
 	if (i == 200)
 		return (0x000000);
-
-	// unsigned int red = (i * 1) % 256;
-	// unsigned int green = (i * 1) % 256;
-	// unsigned int blue = (i * 5) % 256;
-
-	unsigned int red = (unsigned int)(128 + 127 * sin(0.1 * i));
-	unsigned int green = (unsigned int)(128 + 127 * sin(0.1 * i + 2.0));
-	unsigned int blue = (unsigned int)(128 + 127 * sin(0.1 * i + 4.0));
+	unsigned int red = (i * 1) % 256;
+	unsigned int green = (i * 1) % 256;
+	unsigned int blue = (i * 5) % 256;
 	return (red << 16 | green << 8 | blue);
 }
 
@@ -82,8 +69,8 @@ unsigned int	init_pixel_color(int x, int y, t_graph graph, int i)
 	graph.real_range = (graph.max_real - graph.min_real) / graph.zoom;
 	graph.img_range = (graph.max_img - graph.min_img) / graph.zoom;
 
-	graph.center_real = (graph.min_real + graph.max_real) / 2.0; // => pour centrer au milieu
-	graph.center_img = (graph.min_img + graph.max_img) / 2.0;    // => same
+	graph.center_real = (graph.min_real + graph.max_real) / 2.0;
+	graph.center_img = (graph.min_img + graph.max_img) / 2.0;
 
 	pixel.x_graph = graph.center_real - graph.real_range / 2 + ((double)x / graph.width) * graph.real_range;
 	pixel.y_graph = graph.center_img - graph.img_range / 2 + ((double)y / graph.height) * graph.img_range;

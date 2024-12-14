@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/11 22:38:03 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/14 12:06:30 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	main(int argc, char *argv[])
 
 	if (argc < 2)
 		return(wiki(), 0);
-
 	i = select_fractal(argv[1]);
 	if (i < 0 || (i == 1 && argc > 2))
 		return(wiki(), 0);

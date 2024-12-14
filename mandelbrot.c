@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/11 17:58:22 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/14 12:09:52 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,18 @@ int	mandelbrot(void)
 {
 	t_data	img;
 
-	// init graph and window values
 	img.fractal = 1;
 	init_graph_window(&img.graph);
-
-	// Initialisation de MiniLibX et création de la fenêtre
 	img.mlx = mlx_init();
 	img.win = mlx_new_window(img.mlx, img.graph.width, img.graph.height, "Mandelbrot");
-
-	// Création de l'image
 	img.img = mlx_new_image(img.mlx, img.graph.width, img.graph.height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
 	print_pixels(&img, &img.graph, 1);
-	mlx_hook(img.win, 2, 0, handle_keys, &img); // => handle juste l'esc
-	mlx_hook(img.win, 17, 0, close_window, &img); // => same avec la croix
+	mlx_hook(img.win, 2, 0, handle_keys, &img);
+	mlx_hook(img.win, 17, 0, close_window, &img);
 	mlx_mouse_hook(img.win, handle_mouse, &img);
-
-    // Affichage de l'image dans la fenêtre
-    mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
-
-    // Boucle pour garder la fenêtre ouverte
-    mlx_loop(img.mlx);
+	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
+	mlx_loop(img.mlx);
 	return (0);
 }
 
@@ -65,27 +55,17 @@ int	julia(double c, double d)
 {
 	t_data	img;
 
-	// init graph and window values
 	img.fractal = 2;
 	init_graph_window_julia(&img.graph, c, d);
-
-	// Initialisation de MiniLibX et création de la fenêtre
 	img.mlx = mlx_init();
 	img.win = mlx_new_window(img.mlx, img.graph.width, img.graph.height, "Julia");
-
-	// Création de l'image
 	img.img = mlx_new_image(img.mlx, img.graph.width, img.graph.height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
 	print_pixels(&img, &img.graph, 2);
-	mlx_hook(img.win, 2, 0, handle_keys, &img); // => handle juste l'esc
-	mlx_hook(img.win, 17, 0, close_window, &img); // => same avec la croix
+	mlx_hook(img.win, 2, 0, handle_keys, &img);
+	mlx_hook(img.win, 17, 0, close_window, &img);
 	mlx_mouse_hook(img.win, handle_mouse, &img);
-
-    // Affichage de l'image dans la fenêtre
-    mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
-
-    // Boucle pour garder la fenêtre ouverte
-    mlx_loop(img.mlx);
+	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
+	mlx_loop(img.mlx);
 	return (0);
 }

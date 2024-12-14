@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:25:46 by spike             #+#    #+#             */
-/*   Updated: 2024/12/11 17:57:24 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/14 13:00:56 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define ESC_KEY 53 // 65307 linux
 # define HEIGHT 720
 # define WIDTH 1280
-# define MIN_R -2.0
+# define MIN_R -3.5
 # define MAX_R 2.0
 # define MIN_I -1.0
 # define MAX_I 1.0
