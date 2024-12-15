@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/14 12:09:52 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/15 10:10:35 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_pixels(t_data *img, t_graph *graph, int i)
 		x = 0;
 		while (x < graph->width)
 		{
-			dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+			dst = img->addr + (y * img->line_length + x * (img->bts_pxl / 8));
 			*(unsigned int *)dst = init_pixel_color(x, y, *graph, i);
 			x++;
 		}
@@ -39,9 +39,11 @@ int	mandelbrot(void)
 	img.fractal = 1;
 	init_graph_window(&img.graph);
 	img.mlx = mlx_init();
-	img.win = mlx_new_window(img.mlx, img.graph.width, img.graph.height, "Mandelbrot");
+	img.win = mlx_new_window(img.mlx, img.graph.width, img.graph.height,
+			"Mandelbrot");
 	img.img = mlx_new_image(img.mlx, img.graph.width, img.graph.height);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	img.addr = mlx_get_data_addr(img.img, &img.bts_pxl,
+			&img.line_length, &img.endian);
 	print_pixels(&img, &img.graph, 1);
 	mlx_hook(img.win, 2, 0, handle_keys, &img);
 	mlx_hook(img.win, 17, 0, close_window, &img);
@@ -58,9 +60,11 @@ int	julia(double c, double d)
 	img.fractal = 2;
 	init_graph_window_julia(&img.graph, c, d);
 	img.mlx = mlx_init();
-	img.win = mlx_new_window(img.mlx, img.graph.width, img.graph.height, "Julia");
+	img.win = mlx_new_window(img.mlx, img.graph.width, img.graph.height,
+			"Julia");
 	img.img = mlx_new_image(img.mlx, img.graph.width, img.graph.height);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	img.addr = mlx_get_data_addr(img.img, &img.bts_pxl,
+			&img.line_length, &img.endian);
 	print_pixels(&img, &img.graph, 2);
 	mlx_hook(img.win, 2, 0, handle_keys, &img);
 	mlx_hook(img.win, 17, 0, close_window, &img);

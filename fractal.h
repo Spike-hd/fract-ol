@@ -6,28 +6,28 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:25:46 by spike             #+#    #+#             */
-/*   Updated: 2024/12/14 13:00:56 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/15 10:30:22 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTAL_H
 # define FRACTAL_H
 
-#include "minilibx/mlx.h"
-#include "libft/ft_printf/ft_printf.h"
-#include "libft/_libft/libft.h"
-#include <stdlib.h>
-#include <math.h>
+# include "minilibx/mlx.h"
+# include "libft/ft_printf/ft_printf.h"
+# include "libft/_libft/libft.h"
+# include <stdlib.h>
+# include <math.h>
 
 # define ESC_KEY 53 // 65307 linux
 # define HEIGHT 720
 # define WIDTH 1280
 # define MIN_R -3.5
 # define MAX_R 2.0
-# define MIN_I -1.0
-# define MAX_I 1.0
+# define MIN_I -1.5
+# define MAX_I 1.5
 
-typedef struct	s_graph
+typedef struct s_graph
 {
 	double	min_img;
 	double	max_img;
@@ -45,19 +45,20 @@ typedef struct	s_graph
 
 }				t_graph;
 
-typedef struct	s_pixel
+typedef struct s_pixel
 {
 	double	x_graph;
 	double	y_graph;
 }				t_pixel;
 
-typedef struct	s_data {
+typedef struct s_data
+{
 	void	*img;
 	void	*win;
 	void	*mlx;
 	char	*addr;
 	int		fractal;
-	int		bits_per_pixel;
+	int		bts_pxl;
 	int		line_length;
 	int		endian;
 	t_graph	graph;

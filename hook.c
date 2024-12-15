@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:48:51 by spike             #+#    #+#             */
-/*   Updated: 2024/12/14 12:12:20 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/15 10:12:26 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	close_window(t_data *img)
 
 int	handle_keys(int keycode, void *param)
 {
-	t_data *img;
+	t_data	*img;
 
 	img = (t_data *)param;
 	if (keycode == ESC_KEY)
@@ -33,7 +33,6 @@ int	handle_mouse(int button, int x, int y, t_data *img)
 {
 	(void)x;
 	(void)y;
-
 	if (button == 4)
 		img->graph.zoom *= 1.1;
 	else if (button == 5)
