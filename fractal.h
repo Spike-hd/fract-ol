@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:25:46 by spike             #+#    #+#             */
-/*   Updated: 2024/12/15 10:30:22 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/15 21:08:09 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ typedef struct s_pixel
 	double	y_graph;
 }				t_pixel;
 
+typedef struct s_color
+{
+	int	red;
+	int	green;
+	int	blue;
+}				t_color;
+
 typedef struct s_data
 {
 	void	*img;
@@ -62,21 +69,23 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 	t_graph	graph;
+	t_color	color;
 }				t_data;
 
 //			----Mandelbrot----
-int				mandelbrot(void);
+int				mandelbrot(t_data img);
 void			print_pixels(t_data *img, t_graph *graph, int i);
-unsigned int	init_pixel_color(int x, int y, t_graph graph, int i);
+unsigned int	init_pixel_color(int x, int y, t_data *img, int i);
 void			init_graph_window(t_graph *graph);
 
 //			----Julia----
 void			init_graph_window_julia(t_graph *graph, double c, double d);
-int				julia(double c, double d);
+int				julia(double c, double d, t_data img);
 
 //			----ERROR-----
 int				handle_keys(int keycode, void *param);
 int				close_window(t_data *img);
+void			wiki(void);
 
 int				handle_mouse(int button, int x, int y, t_data *img);
 

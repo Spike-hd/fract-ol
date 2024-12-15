@@ -17,7 +17,7 @@ PRINTF      = $(PRINTF_PATH)$(PRINTF_NAME)
 
 INC         = -I ./libft/ -I ./minilibx/
 
-SRC         = fractal.c hook.c init_stuff.c mandelbrot.c
+SRC         = fractal.c hook.c init_stuff.c main.c
 OBJ         = $(SRC:.c=.o)
 
 all: $(NAME)

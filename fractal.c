@@ -6,70 +6,66 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/15 10:27:25 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/15 21:18:14 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
 
-void	wiki(void)
+void	print_pixels(t_data *img, t_graph *graph, int i)
 {
-	ft_printf("\n========== WIKI FRACT-OL ==========\n\n");
-	ft_printf("At runtime, you must specify a fractal to display. ");
-	ft_printf("Additional optional parameters can also be provided :\n\n");
-	ft_printf("./fract-ol <type> <options (for Julia)>\n\n");
-	ft_printf("Mandelbrot, mandelbrot, or 1 : Mandelbrot fractal\n");
-	ft_printf("Julia, julia, or 2 : Julia fractal\n\n");
-	ft_printf("For the Julia fractal set (and only for this set), ");
-	ft_printf("two additional parameters can be provided as calculation ");
-	ft_printf("values.\nThese parameters correspond to a complex number that ");
-	ft_printf("modifies the shape of the Julia fractal.\nThey must be ");
-	ft_printf("fractional numbers ranging from -2.0 to 2.0. Example :\n\n");
-	ft_printf("./fractol J 0.285 -0.01\n\n");
-	ft_printf("========== FRACT-OL CONTROLS ==========\n\n");
-	ft_printf("|------------------------|--------------------|\n");
-	ft_printf("|      scroll wheel      |  Zoom in and out   |\n");
-	ft_printf("|------------------------|--------------------|\n");
-	ft_printf("| echap or close control |   Quit fract-ol    |\n");
-	ft_printf("|------------------------|--------------------|\n\n");
-	ft_printf("Exiting properly...");
+	int		x;
+	int		y;
+	char	*dst;
+
+	y = 0;
+	while (y < graph->height)
+	{
+		x = 0;
+		while (x < graph->width)
+		{
+			dst = img->addr + (y * img->line_length + x * (img->bts_pxl / 8));
+			*(unsigned int *)dst = init_pixel_color(x, y, img, i);
+			x++;
+		}
+		y++;
+	}
 }
 
-int	select_fractal(char *str)
+int	mandelbrot(t_data img)
 {
-	if (!ft_strncmp(str, "mandelbrot", ft_strlen(str)))
-		return (1);
-	if (!ft_strncmp(str, "Mandelbrot", ft_strlen(str)))
-		return (1);
-	if (!ft_strncmp(str, "1", ft_strlen(str)))
-		return (1);
-	if (!ft_strncmp(str, "julia", ft_strlen(str)))
-		return (2);
-	if (!ft_strncmp(str, "Julia", ft_strlen(str)))
-		return (2);
-	if (!ft_strncmp(str, "2", ft_strlen(str)))
-		return (2);
-	else
-		return (0);
+	img.fractal = 1;
+	init_graph_window(&img.graph);
+	img.mlx = mlx_init();
+	img.win = mlx_new_window(img.mlx, img.graph.width, img.graph.height,
+			"Mandelbrot");
+	img.img = mlx_new_image(img.mlx, img.graph.width, img.graph.height);
+	img.addr = mlx_get_data_addr(img.img, &img.bts_pxl,
+			&img.line_length, &img.endian);
+	print_pixels(&img, &img.graph, 1);
+	mlx_hook(img.win, 2, 1L << 0, handle_keys, &img);
+	mlx_hook(img.win, 17, 0, close_window, &img);
+	mlx_mouse_hook(img.win, handle_mouse, &img);
+	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
+	mlx_loop(img.mlx);
+	return (0);
 }
 
-int	main(int argc, char *argv[])
+int	julia(double c, double d, t_data img)
 {
-	int	i;
-
-	if (argc < 2)
-		return (wiki(), 0);
-	i = select_fractal(argv[1]);
-	if (i < 0 || (i == 1 && argc > 2))
-		return (wiki(), 0);
-	if (i == 1 && argc > 2)
-		return (wiki(), 0);
-	if (i == 1)
-		mandelbrot();
-	if (i == 2 && argc == 2)
-		julia(-0.8, 0.156);
-	else if (i == 2 && argc == 4)
-		julia(ft_atod(argv[2]), ft_atod(argv[3]));
-	else
-		return (wiki(), 0);
+	img.fractal = 2;
+	init_graph_window_julia(&img.graph, c, d);
+	img.mlx = mlx_init();
+	img.win = mlx_new_window(img.mlx, img.graph.width, img.graph.height,
+			"Julia");
+	img.img = mlx_new_image(img.mlx, img.graph.width, img.graph.height);
+	img.addr = mlx_get_data_addr(img.img, &img.bts_pxl,
+			&img.line_length, &img.endian);
+	print_pixels(&img, &img.graph, 2);
+	mlx_hook(img.win, 2, 1L << 0, handle_keys, &img);
+	mlx_hook(img.win, 17, 0, close_window, &img);
+	mlx_mouse_hook(img.win, handle_mouse, &img);
+	mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
+	mlx_loop(img.mlx);
+	return (0);
 }
