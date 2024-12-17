@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 16:48:51 by spike             #+#    #+#             */
-/*   Updated: 2024/12/15 21:41:05 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/17 21:07:15 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	wiki(void)
 	ft_printf("./fractol 2 0.285 -0.01\n\n");
 	ft_printf("You can specify the intensity of the RGB color from 0 to 255");
 	ft_printf("\nPutting a letter would be consider as a 0 for the intensity");
-	ft_printf("\nfractal's appearance :\n\n./fractol 1 5 10 34\n\n");
+	ft_printf("\nsfractal's appearance :\n\n./fractol 1 5 10 34\n\n");
 	ft_printf("However, for the Julia set, the color option can only be ");
 	ft_printf("used after specifying the calculation values :\n\n");
 	ft_printf("./fractol Julia -0.4 0.6 45 50 22\n\n");

@@ -6,7 +6,7 @@
 /*   By: spike <spike@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 20:01:02 by spike             #+#    #+#             */
-/*   Updated: 2024/12/15 21:33:39 by spike            ###   ########.fr       */
+/*   Updated: 2024/12/17 21:13:06 by spike            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ int	main(int argc, char **argv)
 	int		i;
 	t_data	img;
 
+	if (argc < 2)
+		return (wiki(), 0);
 	i = select_fractal(argv[1]);
-	if (argc < 2 || i < 0 || i > 2)
+	if (i < 0 || i > 2)
 		return (wiki(), 0);
 	if (i == 1)
 	{
